@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Degenvicho's Doodle Pad - $GENVICHO Unleashed!</title>
+    <meta name="description" content="Degenvicho ($GENVICHO) - Scribbled into existence on the Solana blockchain! Join the doodle-verse. 3% for the Artist, 97% for the Gallery (Community!).">
+    <meta name="keywords" content="Degenvicho, GENVICHO, meme coin, crypto, solana, doodle, hand-drawn, sketchbook, fun crypto">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #fdfaf6; /* Off-white paper */
+            --text-color: #5D5C61; /* Soft dark grey */
+            --heading-color: #373F51; /* Slightly darker for headings */
+            --accent-primary: #FF6B6B; /* Playful Coral */
+            --accent-secondary: #4ECDC4; /* Playful Teal */
+            --accent-highlight: #FFD972; /* Soft Yellow for notes */
+            
+            --font-heading: 'Architects Daughter', cursive;
+            --font-body: 'Nunito', sans-serif;
+
+            --border-radius-sketch: 10px 25px 8px 20px / 20px 10px 22px 10px; /* Wobbly border effect */
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(253, 250, 246, 0.85); 
+            backdrop-filter: blur(8px);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 2px dashed rgba(0,0,0,0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: var(--font-heading); 
+            font-size: 2.8em;
+            color: var(--accent-primary);
+            font-weight: normal; 
+            transform: rotate(-2deg);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center; 
+        }
+
+        nav ul li {
+            margin-left: 25px; 
+        }
+        
+        nav ul li:first-child { 
+            margin-left: 0;
+        }
+
+        nav ul li a {
+            font-family: var(--font-body); 
+            font-weight: 700; 
+            color: var(--heading-color);
+            text-decoration: none;
+            font-size: 1.1em; 
+            padding: 8px 12px; 
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--accent-secondary);
+        }
+        nav ul li a.active::after { 
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 5px;
+            right: 5px;
+            height: 3px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0,5 Q25,2 50,5 T100,5' stroke='%234ECDC4' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+        }
+        
+        .mobile-nav-toggle {
+            display: none;
+            font-family: var(--font-heading);
+            font-size: 1.8em;
+            background: none;
+            border: 2px dashed var(--text-color);
+            border-radius: var(--border-radius-sketch);
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 3px 12px;
+            transform: rotate(1deg);
+        }
+        .mobile-nav-toggle:hover {
+            color: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 90vh;
+            padding-top: 100px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        #hero h1 {
+            font-family: var(--font-heading);
+            font-size: 4em;
+            color: var(--heading-color);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            transform: rotate(-1deg);
+        }
+
+        #hero p {
+            font-size: 1.4em;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .btn {
+            display: inline-block;
+            font-family: var(--font-heading);
+            background-color: var(--accent-primary);
+            color: var(--bg-color);
+            padding: 12px 28px;
+            text-decoration: none;
+            font-size: 1.5em;
+            border: none;
+            border-radius: var(--border-radius-sketch);
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+            transition: all 0.2s ease-out;
+            margin: 10px;
+            transform: rotate(-1.5deg);
+        }
+
+        .btn:hover {
+            background-color: #E55A5A;
+            transform: rotate(-0.5deg) scale(1.03);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent-secondary);
+            transform: rotate(1deg);
+        }
+        .btn-secondary:hover {
+            background-color: #3EBEB3;
+            transform: rotate(0.5deg) scale(1.03);
+        }
+
+
+        /* Sections "Sketch Page" Style */
+        section {
+            padding: 80px 0; 
+            margin-bottom: 40px;
+        }
+        
+        .sketch-page { 
+            background-color: #fff; 
+            padding: 30px 25px;
+            border-radius: 5px 30px 3px 10px / 10px 5px 20px 3px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.07);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .sketch-page::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            width: 80px;
+            height: 25px;
+            background-color: rgba(255, 217, 114, 0.6); 
+            transform: rotate(-4deg);
+            border: 1px dashed rgba(0,0,0,0.1);
+            border-radius: 3px;
+            opacity: 0.8;
+        }
+
+
+        section h2 {
+            font-family: var(--font-heading);
+            text-align: center;
+            font-size: 3em;
+            color: var(--heading-color);
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            position: relative;
+            transform: rotate(-1deg);
+        }
+        section h2::after { 
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0,5 Q25,0 50,5 T100,5' stroke='%23FF6B6B' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            color: var(--text-color);
+        }
+
+        .section-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .section-content.reverse {
+            flex-direction: row-reverse;
+        }
+        .section-text {
+            flex: 1.5;
+        }
+        .section-text p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .section-text strong {
+            font-weight: bold;
+            color: var(--accent-primary);
+        }
+        .section-image {
+            flex: 1;
+            text-align: center;
+        }
+        .section-image img {
+            max-width: 90%;
+            height: auto;
+            border-radius: var(--border-radius-sketch);
+            border: 3px dashed var(--accent-secondary);
+            padding: 5px;
+            background-color: #fff;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+            transform: rotate(2deg);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .section-image img:hover {
+            transform: rotate(-1deg) scale(1.05);
+        }
+
+        /* Tokenomics Section - Sticky Note Style */
+        #tokenomics ul {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        #tokenomics ul li {
+            background: var(--accent-highlight);
+            color: var(--heading-color);
+            padding: 15px 20px;
+            border-radius: 5px 15px 3px 10px / 10px 3px 12px 3px; 
+            font-size: 1.1em;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            transform: rotate(-2deg);
+            width: calc(50% - 10px); 
+            min-width: 250px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+         #tokenomics ul li:nth-child(even) {
+            transform: rotate(1.5deg);
+        }
+        #tokenomics ul li:hover {
+            transform: rotate(0deg) scale(1.05) translateY(-3px);
+            z-index: 5; 
+        }
+        #tokenomics ul li strong {
+            font-family: var(--font-heading);
+            color: var(--accent-primary);
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contract-address {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border: 2px dashed var(--accent-primary);
+            border-radius: var(--border-radius-sketch);
+        }
+        .contract-address p {
+            font-size: 1.1em;
+            word-break: break-all;
+            margin-bottom: 15px;
+        }
+         .contract-address p strong {
+            font-family: var(--font-heading);
+            color: var(--accent-primary);
+            font-size: 1.2em;
+         }
+        #copy-ca-btn { 
+            font-family: var(--font-heading);
+            background-color: var(--accent-secondary);
+            color: var(--bg-color);
+            padding: 8px 18px;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: var(--border-radius-sketch);
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            transform: rotate(1deg);
+            transition: all 0.2s ease-out;
+        }
+        #copy-ca-btn:hover {
+            background-color: #3EBEB3;
+            transform: rotate(0deg) scale(1.03);
+        }
+         .contract-address .disclaimer-text {
+            font-size: 0.9em;
+            margin-top: 10px;
+            opacity: 0.8;
+         }
+
+
+        /* How to Buy Section - Checklist Style */
+        #how-to-buy ol {
+            list-style: none;
+            max-width: 700px;
+            margin: 0 auto;
+            padding-left: 0;
+            counter-reset: how-to-step;
+        }
+        #how-to-buy ol li {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            background: #fff;
+            padding: 15px 20px 15px 55px; 
+            border-radius: var(--border-radius-sketch);
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+            position: relative;
+        }
+
+        #how-to-buy ol li::before { 
+            content: '';
+            counter-increment: how-to-step;
+            position: absolute;
+            left: 15px;
+            top: 18px;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--accent-secondary);
+            border-radius: 5px 8px 3px 6px / 8px 3px 6px 4px; 
+            display: inline-block;
+            margin-right: 10px;
+        }
+        #how-to-buy ol li strong {
+            font-family: var(--font-heading);
+            color: var(--accent-secondary);
+            font-size: 1.2em;
+        }
+        #how-to-buy ol li a {
+            color: var(--accent-primary);
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px dashed var(--accent-primary);
+        }
+        #how-to-buy ol li a:hover {
+            color: var(--accent-secondary);
+            border-bottom-color: var(--accent-secondary);
+        }
+
+        /* Roadmap Section - Mind Map / Flowchart Bubbles */
+        .roadmap-grid {
+            display: flex; 
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .roadmap-phase {
+            background: #fff;
+            border: 2px dashed var(--accent-primary);
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+            padding: 20px;
+            border-radius: 50px 20px 60px 30px / 30px 60px 25px 55px; 
+            width: clamp(280px, 30%, 320px); 
+            transition: transform 0.3s ease;
+        }
+        .roadmap-phase:nth-child(even){
+            border-color: var(--accent-secondary);
+            transform: rotate(2deg);
+        }
+        .roadmap-phase:nth-child(odd){
+            transform: rotate(-2deg);
+        }
+        .roadmap-phase:hover {
+            transform: rotate(0deg) scale(1.04);
+            z-index: 5;
+        }
+        .roadmap-phase h3 {
+            font-family: var(--font-heading);
+            color: var(--accent-primary);
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            text-align: center;
+        }
+         .roadmap-phase:nth-child(even) h3 { color: var(--accent-secondary); }
+        .roadmap-phase ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .roadmap-phase ul li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .roadmap-phase ul li::before { 
+            content: '✏️'; 
+            position: absolute;
+            left: 0;
+            font-size: 0.9em;
+            top: 2px;
+        }
+
+
+        /* Community Section */
+        #community .social-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+        #community .social-links a {
+            display: inline-block;
+            margin: 0 15px;
+            font-size: 3.5em;
+            color: var(--accent-primary);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+            transform: rotate(-3deg);
+        }
+        #community .social-links a:nth-child(even) { transform: rotate(3deg); }
+
+        #community .social-links a:hover {
+            color: var(--accent-secondary);
+            transform: scale(1.2) rotate(5deg);
+        }
+        .icon-telegram path, .icon-x path { fill: currentColor; }
+
+
+        /* Footer */
+        footer {
+            background: #f0ebe5; 
+            color: var(--text-color);
+            opacity: 0.9;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.95em;
+            border-top: 3px double rgba(0,0,0,0.1);
+        }
+        footer p {
+            margin-bottom: 10px;
+        }
+        footer strong { color: var(--accent-primary); font-weight: bold; }
+        footer a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px dashed var(--accent-secondary);
+        }
+        footer a:hover {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+
+        /* Animations */
+        @keyframes spin-wiggle { 
+            0% { transform: rotate(0deg) translateX(0px); }
+            25% { transform: rotate(4deg) translateX(4px); }
+            50% { transform: rotate(0deg) translateX(0px); }
+            75% { transform: rotate(-4deg) translateX(-4px); }
+            100% { transform: rotate(0deg) translateX(0px); }
+        }
+        .degenvicho-mascot { /* UPDATED CLASS NAME */
+             animation: spin-wiggle 10s infinite linear;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo { font-size: 2.2em; }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: rgba(253, 250, 246, 0.98);
+                position: absolute;
+                top: 100%; 
+                left: 0;
+                padding: 10px 0;
+                border-top: 2px dashed rgba(0,0,0,0.1);
+                box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+            }
+            nav ul.active { display: flex; }
+            nav ul li { 
+                margin-left: 0; 
+                margin: 10px 0; 
+                text-align: center; 
+            }
+            nav ul li a { 
+                font-family: var(--font-heading); 
+                font-size: 1.6em; 
+                font-weight: normal; 
+                padding: 5px 8px; 
+            }
+            .mobile-nav-toggle { display: block; }
+
+            #hero h1 { font-size: 3em; }
+            #hero p { font-size: 1.2em; }
+            .btn { font-size: 1.3em; padding: 10px 22px;}
+             #hero .btn {
+                 display: block;
+                 margin-left: auto;
+                 margin-right: auto;
+                 max-width: 280px; 
+            }
+
+            .section-content, .section-content.reverse {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .section-image img { max-width: 75%; margin-top: 20px; }
+            section h2 { font-size: 2.5em; }
+            section { padding: 60px 0 30px; }
+            .sketch-page { padding: 20px 15px; }
+            #tokenomics ul li { width: calc(100% - 10px); min-width: unset; } 
+            .roadmap-grid { flex-direction: column; align-items: center; }
+            .roadmap-phase { width: clamp(280px, 80%, 350px); }
+            #community .social-links a { font-size: 3em; }
+        }
+
+        @media (max-width: 480px) {
+            #hero h1 { font-size: 2.4em; }
+            section h2 { font-size: 2.2em; }
+            .logo { font-size: 2em; }
+            .mobile-nav-toggle { font-size: 1.6em; padding: 2px 10px;}
+            .btn { font-size: 1.2em; padding: 10px 18px; }
+            .section-subtitle { font-size: 1.1em; }
+            #tokenomics ul li, #how-to-buy ol li { font-size: 1em; }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">Degenvicho!</div>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+            <nav>
+                <ul id="nav-links">
+                    <li><a href="#hero" class="nav-link active">Start!</a></li>
+                    <li><a href="#about" class="nav-link">Our Story</a></li>
+                    <li><a href="#tokenomics" class="nav-link">The Bits</a></li>
+                    <li><a href="#how-to-buy" class="nav-link">Get Some!</a></li>
+                    <li><a href="#roadmap" class="nav-link">Big Plans</a></li>
+                    <li><a href="#community" class="nav-link">Say Hi!</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Degenvicho's Grand Doodle!</h1>
+            <p>$GENVICHO: Freshly sketched onto Solana! It's a bit messy, a lot of fun, and totally Degenvicho.</p>
+            <div>
+                <a href="PUMP_FUN_BUY_LINK_HERE" target="_blank" class="btn">🚀 Grab a Crayon (Pump.fun)! 🚀</a>
+                <a href="#about" class="btn btn-secondary">Peek at the Sketchbook</a>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <div class="sketch-page">
+                    <h2>WHO SCRIBBLED THIS DEGENVICHO?!</h2>
+                    <div class="section-content">
+                        <div class="section-text">
+                            <p>Rumor has it, Degenvichos ($GENVICHO) were doodled into existence during a very long daydream, powered by stray thoughts and too much sugary cereal. They're not here to change the world, just to add a bit more color (and maybe some googly eyes) to the Solana blockchain.</p>
+                            <p>Degenvicho is a happy accident, a splash of spontaneity. It’s a reminder that not everything needs to be serious. Join our little art project and let's make the crypto space a bit more playful, one $GENVICHO doodle at a time.</p>
+                            <p><strong>The Artist's Cut:</strong> 3% for more art supplies (and coffee for the Dev). 97% for YOU, the amazing Degenvicho Gallery! Fair, fun, and full of creative chaos.</p>
+                        </div>
+                        <div class="section-image">
+                            <img src="https://raw.githubusercontent.com/po-po-monkey/po-po-monkey.github.io/refs/heads/main/GOOF%201.png" alt="Degenvicho Mascot 1 - A Doodle Creature" class="degenvicho-mascot">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tokenomics">
+            <div class="container">
+                <div class="sketch-page">
+                    <h2>$GENVICHO: THE COLORFUL BITS!</h2>
+                    <p class="section-subtitle">Simple math, even for a doodle!</p>
+                    <ul>
+                        <li><strong>Total Doodles:</strong> 1,000,000,000 $GENVICHO (Lots of colors to share!)</li>
+                        <li><strong>Artist's Stash:</strong> 3% (For new markers, dev snacks, and keeping the lights on)</li>
+                        <li><strong>Community Canvas:</strong> 97% (This is YOUR masterpiece! Pump.fun for the first brushstrokes)</li>
+                        <li><strong>Smudge Fees (Taxes):</strong> 0/0 (Draw, erase, hold! No messy fees!)</li>
+                        <li><strong>Permanent Ink (LP):</strong> Will be super-glued or laminated (Safety first, even for scribbles!)</li>
+                    </ul>
+                    <div class="contract-address">
+                        <p><strong>Magic Marker ID (Solana):</strong> <span id="contractAddress">YOUR_CONTRACT_ADDRESS_HERE</span></p>
+                        <button id="copy-ca-btn">Copy ID!</button>
+                        <p class="disclaimer-text">(Wait for the official "Ta-Da!" before using! Color within the lines! DYOR!)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-to-buy">
+            <div class="container">
+                <div class="sketch-page">
+                    <h2>HOW TO ADD DEGENVICHO TO YOUR COLLECTION!</h2>
+                    <p class="section-subtitle">It's easier than drawing a perfect circle (almost).</p>
+                    <ol>
+                        <li><strong>Get Your Sketchbook (Wallet):</strong> Download Phantom, Solflare, or a SOL-friendly wallet. Keep your secret drawing techniques (seed phrase) super safe!</li>
+                        <li><strong>Get Some Colors (SOL):</strong> Buy Solana (SOL) on an exchange (like Coinbase, Binance, etc.) and send it to your wallet.</li>
+                        <li><strong>Visit the Art Store (Pump.fun):</strong> When we're live, find our official <a href="PUMP_FUN_BUY_LINK_HERE" target="_blank">Pump.fun page</a> (link coming soon!).</li>
+                        <li><strong>Show Your ID (Connect Wallet):</strong> Click "Connect Wallet" on Pump.fun.</li>
+                        <li><strong>Buy Your $GENVICHO Doodles:</strong> Choose how much SOL to swap for $GENVICHO, confirm, and welcome to the doodle-verse!</li>
+                        <li><strong>Frame Your Art (Add to Wallet):</strong> You might need to add the $GENVICHO token address (see The Bits) to see your awesome doodles in your wallet.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap">
+            <div class="container">
+                <div class="sketch-page">
+                    <h2>THE DEGENVICHO MASTERPIECE PLAN (SORT OF)</h2>
+                    <div class="section-content reverse">
+                         <div class="section-text">
+                            <div class="roadmap-grid">
+                                <div class="roadmap-phase">
+                                    <h3>Chapter 1: First Scribbles</h3>
+                                    <ul>
+                                        <li>Launch on Pump.fun (Messy Start!)</li>
+                                        <li>Website & Socials Doodled</li>
+                                        <li>Initial Meme Brainstorms</li>
+                                        <li>Gathering Fellow Doodlers!</li>
+                                    </ul>
+                                </div>
+                                <div class="roadmap-phase">
+                                    <h3>Chapter 2: Adding Color</h3>
+                                    <ul>
+                                        <li>Reach Pump.fun Goal (Fill the Page!)</li>
+                                        <li>Raydium Liquidity Pool (More Colors!)</li>
+                                        <li>CoinGecko & CoinMarketCap Listings</li>
+                                        <li>Doodle Contests & Fun Times</li>
+                                        <li>Collabs with other cool art projects?</li>
+                                    </ul>
+                                </div>
+                                <div class="roadmap-phase">
+                                    <h3>Chapter 3: The Grand Gallery!</h3>
+                                    <ul>
+                                        <li>Grow the Doodle Community</li>
+                                        <li>??? (Who plans this far for doodles?)</li>
+                                        <li>Degenvicho Stickers (If we feel like it)</li>
+                                        <li>Become a Famous Internet Doodle!</li>
+                                        <li>Achieve Peak Doodleness</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-image">
+                             <img src="https://raw.githubusercontent.com/po-po-monkey/po-po-monkey.github.io/refs/heads/main/GOOF%202.png" alt="Degenvicho Mascot 2 - Another Doodle Creature" class="degenvicho-mascot">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="community">
+            <div class="container">
+                <div class="sketch-page">
+                    <h2>JOIN THE DOODLE CLUB!</h2>
+                    <p class="section-subtitle">Don't be a blank page! Follow, chat, and share your Degenvicho ideas with us!</p>
+                    <div class="social-links">
+                        <a href="https://t.me/degenvicho" target="_blank" title="Telegram Chat Bubble">
+                            <svg class="icon-telegram" viewBox="0 0 24 24" width="48" height="48"><path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.49-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.58c-.19.93-.73 1.13-1.5.7l-4.74-3.55l-2.17 2.1c-.23.23-.42.41-.83.41z"/></svg>
+                        </a>
+                        <a href="https://x.com/degenvicho?s=09" target="_blank" title="X (Twitter) Birdy Doodle">
+                             <svg class="icon-x" viewBox="0 0 24 24" width="48" height="48"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Degenvicho ($GENVICHO). All Doodles Reserved by the Artists.</p>
+            <p><strong>Friendly Reminder:</strong> $GENVICHO is a meme coin, a fun digital doodle. It's for giggles, not for serious financial stuff. Crypto is wild and woolly. Please do your own homework (DYOR) and only play with colors you can afford to spill. We're just here to have a good time sketching!</p>
+            <p>Drawn with imagination and a sprinkle of digital magic.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a.nav-link[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const header = document.querySelector('header');
+                    const headerOffset = header ? header.offsetHeight : 70; 
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+
+                    const navList = document.getElementById('nav-links');
+                    if (navList.classList.contains('active')) {
+                        navList.classList.remove('active');
+                        const toggleButton = document.querySelector('.mobile-nav-toggle');
+                        toggleButton.setAttribute('aria-expanded', 'false');
+                        toggleButton.innerHTML = 'Menu'; 
+                    }
+                }
+            });
+        });
+
+        // Copy Contract Address
+        const copyButton = document.getElementById('copy-ca-btn');
+        const contractAddressSpan = document.getElementById('contractAddress');
+
+        if (copyButton && contractAddressSpan) {
+            copyButton.addEventListener('click', () => {
+                const address = contractAddressSpan.innerText;
+                if (address && address.toUpperCase() !== 'YOUR_CONTRACT_ADDRESS_HERE' && address.toUpperCase() !== 'CONTRACT ADDRESS (SOON)') {
+                    navigator.clipboard.writeText(address).then(() => {
+                        copyButton.innerText = 'Copied!';
+                        setTimeout(() => {
+                            copyButton.innerText = 'Copy ID!';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                        alert('Oops! Couldn\'t copy. Try manual scribble!');
+                    });
+                } else {
+                    alert('Magic Marker ID not ready yet!');
+                }
+            });
+        }
+        
+        // Mobile Nav Toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        if (mobileNavToggle && navLinks) {
+            mobileNavToggle.addEventListener('click', () => {
+                const isExpanded = navLinks.classList.toggle('active');
+                mobileNavToggle.setAttribute('aria-expanded', isExpanded);
+                if(isExpanded) {
+                    mobileNavToggle.innerHTML = 'Close'; 
+                } else {
+                    mobileNavToggle.innerHTML = 'Menu';
+                }
+            });
+        }
+
+        // Active nav link highlighting on scroll
+        const sections = document.querySelectorAll('main section[id]');
+        const navLiA = document.querySelectorAll('nav ul li a.nav-link');
+        
+        function updateActiveLink() {
+            const header = document.querySelector('header');
+            const headerOffset = header ? header.offsetHeight : 70;
+            let current = ''; 
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= (sectionTop - headerOffset - 60)) { 
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            if (current === '' && window.scrollY < ( (sections[0] ? sections[0].offsetTop : window.innerHeight) - headerOffset - 60) ) {
+                current = 'hero';
+            }
+
+            navLiA.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').substring(1) === current) {
+                    a.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+        window.addEventListener('load', updateActiveLink);
+
+    </script>
+
+</body>
+</html>
